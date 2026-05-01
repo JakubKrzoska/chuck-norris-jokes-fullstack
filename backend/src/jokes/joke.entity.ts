@@ -9,7 +9,6 @@ export class Joke {
   @Column()
   text!: string;
 
-  // This links the joke to a specific user
   @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
   user!: User;
 }

@@ -12,7 +12,6 @@ import { JokesService } from './jokes.service';
 import { CreateJokeDto } from './dto/create-joke.dto';
 import { AuthGuard } from '@nestjs/passport';
 
-// 1. We tell TypeScript exactly what the JWT payload looks like
 interface RequestWithUser {
   user: {
     userId: string;
@@ -28,20 +27,18 @@ export class JokesController {
   @Post()
   create(
     @Body() createJokeDto: CreateJokeDto,
-    @Request() req: RequestWithUser, // 2. Apply the type here
+    @Request() req: RequestWithUser,
   ) {
     return this.jokesService.create(createJokeDto, req.user.userId);
   }
 
   @Get()
   findAll(@Request() req: RequestWithUser) {
-    // Apply here
     return this.jokesService.findAllForUser(req.user.userId);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, @Request() req: RequestWithUser) {
-    // Apply here
     return this.jokesService.remove(+id, req.user.userId);
   }
 }

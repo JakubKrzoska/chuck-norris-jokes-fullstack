@@ -8,11 +8,11 @@ import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
-    UsersModule, // We need to access the database through the UsersService
+    UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: 'chuck-norris-secret-key-2024', // Must match the strategy secret
-      signOptions: { expiresIn: '1d' }, // Token expires in 1 day
+      secret: 'chuck-norris-secret-key-2024',
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [AuthController],

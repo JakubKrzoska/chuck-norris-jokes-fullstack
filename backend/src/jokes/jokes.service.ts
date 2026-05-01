@@ -14,7 +14,7 @@ export class JokesService {
   async create(createJokeDto: CreateJokeDto, userId: string): Promise<Joke> {
     const newJoke = this.jokesRepository.create({
       text: createJokeDto.text,
-      user: { id: userId }, // Automatically link the joke to the logged-in user
+      user: { id: userId },
     });
     return this.jokesRepository.save(newJoke);
   }
@@ -26,7 +26,6 @@ export class JokesService {
   }
 
   async remove(id: number, userId: string): Promise<void> {
-    // Ensure the user only deletes their own joke
     const result = await this.jokesRepository.delete({
       id,
       user: { id: userId },

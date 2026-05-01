@@ -7,14 +7,13 @@ export default function AddJoke() {
   const [status, setStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
 
   const handleAddJoke = async () => {
-    setStatus(null); // Clear previous status
+    setStatus(null); 
     try {
       await api.request('/jokes', {
         method: 'POST',
         body: JSON.stringify({ text: jokeText }),
       });
       
-      // Provide feedback and clear the input[cite: 3]
       setStatus({ type: 'success', message: 'Your joke has been added to the list!' });
       setJokeText(''); 
     } catch (err) {
@@ -30,7 +29,6 @@ export default function AddJoke() {
           Add joke
         </Typography>
 
-        {/* Status feedback for the user */}
         {status && <Alert severity={status.type} sx={{ mb: 2 }}>{status.message}</Alert>}
 
         <TextField

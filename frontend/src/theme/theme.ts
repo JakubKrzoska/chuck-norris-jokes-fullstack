@@ -17,28 +17,36 @@ const theme = createTheme({
     fontFamily: '"Josefin Slab", serif', 
   },
   components: {
-    MuiOutlinedInput: {
+    MuiButton: {
       styleOverrides: {
         root: {
-          '& fieldset': {
-            borderColor: '#E5B4C6 !important', 
-          },
-          '&:hover fieldset': {
-            borderColor: '#E5B4C6 !important', 
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#E5B4C6 !important', 
-            borderWidth: '1px', 
-          },
+          fontFamily: '"Montserrat", sans-serif',
+          fontWeight: 500, 
+          textTransform: 'none', 
         },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
+          fontFamily: '"Montserrat", sans-serif',
           '&.Mui-focused': {
-            color: '#E5B4C6', //[cite: 1]
+            color: '#E5B4C6', 
           },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"Montserrat", sans-serif',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& fieldset': { borderColor: '#E5B4C6 !important' },
         },
       },
     },

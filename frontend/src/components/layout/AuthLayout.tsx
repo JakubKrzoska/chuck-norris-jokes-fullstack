@@ -3,6 +3,7 @@ import { Box, Paper, Typography, TextField, Button, Link, Alert } from '@mui/mat
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import chuckLogo from '../../assets/chuck-logo.svg';
 import { api } from '../../api'; 
+import Decorations from './Decorations';
 
 interface AuthLayoutProps {
   buttonText: string;
@@ -43,15 +44,25 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
       <Paper 
         elevation={6} 
         sx={{ 
-          p: { xs: 3, md: 5 }, display: 'flex', flexDirection: 'column', 
-          alignItems: 'center', width: '90%', maxWidth: 1100,
-          borderRadius: 4, backgroundColor: 'background.paper', 
+          p: { xs: 3, md: 5 }, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          width: '90%',
+          maxWidth: 1100,
+          borderRadius: 4,
+          backgroundColor: 'background.paper', 
+          position: 'relative',
+          overflow: 'visible'   
         }}
       >
+        <Decorations sx={{ top: 80, left: -70 }} />
+        <Decorations size={80} sx={{ bottom: 80, right: -40 }} />
+
         <Box component="img" src={chuckLogo} alt="Logo" sx={{ width: 60, mb: 4 }} />
         <Typography variant="h4" sx={{ mb: 3, color: 'text.primary', textAlign: 'center' }}>
           Explore "Chuck Jokes" with us!

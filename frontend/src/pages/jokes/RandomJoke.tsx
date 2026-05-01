@@ -9,10 +9,10 @@ export default function RandomJoke() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [impersonateName, setImpersonateName] = useState<string>('');
-  const [saveStatus, setSaveStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null); // New state for save feedback
+  const [saveStatus, setSaveStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null); 
 
   const fetchJoke = useCallback(async () => {
-    setSaveStatus(null); // Reset status when fetching a new joke
+    setSaveStatus(null); 
     try {
       let url = 'https://api.chucknorris.io/jokes/random';
       if (selectedCategory) url += `?category=${selectedCategory}`;
@@ -117,7 +117,7 @@ export default function RandomJoke() {
             </FormControl>
             
             <Button 
-              variant="contained" color="secondary" fullWidth onClick={handleSaveJoke} // <-- Attached the handler here
+              variant="contained" color="secondary" fullWidth onClick={handleSaveJoke} 
               sx={{ py: 1, fontSize: '14px', fontWeight: 600, textTransform: 'uppercase' }}
             >
               SAVE THIS JOKE

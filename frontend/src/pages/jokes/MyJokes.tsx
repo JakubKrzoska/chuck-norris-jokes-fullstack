@@ -28,11 +28,9 @@ export default function MyJokes() {
     }
   };
 
-  // 2. Handle deleting a joke from the database
   const handleDelete = async (id: number) => {
     try {
       await api.request(`/jokes/${id}`, { method: 'DELETE' });
-      // Update the local state to remove the joke from the UI immediately
       setJokes((prevJokes) => prevJokes.filter(joke => joke.id !== id));
     } catch (err) {
       console.error("Failed to delete joke", err);
