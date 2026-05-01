@@ -36,8 +36,9 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
       localStorage.setItem('access_token', data.access_token);
     
       navigate('/random-joke');
-    } catch(err: unknown) {
-      setError(err.message || 'Connection failed');
+    } catch(err) {
+      const error = err as Error;
+      setError(error.message || 'Connection failed');
     }
   };
 

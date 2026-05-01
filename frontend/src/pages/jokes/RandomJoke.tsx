@@ -47,8 +47,9 @@ export default function RandomJoke() {
         body: JSON.stringify({ text: displayedJoke }),
       });
       setSaveStatus({ type: 'success', message: 'Joke saved successfully!' });
-    } catch (err: unknown) {
-      setSaveStatus({ type: 'error', message: err.message || 'Failed to save joke' });
+    } catch (err) {
+      const error = err as Error;
+      setSaveStatus({ type: 'error', message: error.message || 'Failed to save joke' });
     }
   };
 

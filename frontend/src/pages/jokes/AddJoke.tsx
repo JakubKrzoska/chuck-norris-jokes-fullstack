@@ -17,8 +17,9 @@ export default function AddJoke() {
       // Provide feedback and clear the input[cite: 3]
       setStatus({ type: 'success', message: 'Your joke has been added to the list!' });
       setJokeText(''); 
-    } catch (err: any) {
-      setStatus({ type: 'error', message: err.message || 'Failed to add joke' });
+    } catch (err) {
+      const error = err as Error;
+      setStatus({ type: 'error', message: error.message || 'Failed to add joke' });
     }
   };
 
