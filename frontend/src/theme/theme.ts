@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: { main: '#5B64B4' }, 
-    secondary: { main: '#E84A8F' }, 
+    secondary: { main: '#E84A8F', light: '#E5B4C6' }, 
     background: {
       default: '#5B64B4', 
       paper: '#FDFDFA',   
@@ -15,6 +15,33 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: '"Josefin Slab", serif', 
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& fieldset': {
+            borderColor: '#E5B4C6 !important', 
+          },
+          '&:hover fieldset': {
+            borderColor: '#E5B4C6 !important', 
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#E5B4C6 !important', 
+            borderWidth: '1px', 
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused': {
+            color: '#E5B4C6', //[cite: 1]
+          },
+        },
+      },
+    },
   },
 });
 

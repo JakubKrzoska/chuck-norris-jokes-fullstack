@@ -1,3 +1,4 @@
+import { useState } from 'react'; // Added useState
 import { Box, Paper, Typography, TextField, Button, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import chuckLogo from '../../assets/chuck-logo.svg';
@@ -10,6 +11,11 @@ interface AuthLayoutProps {
 }
 
 export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }: AuthLayoutProps) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const isFormValid = email.trim() !== '' && password.trim() !== '';
+
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Paper 
@@ -22,25 +28,19 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
           width: '90%',
           maxWidth: 1100,
           borderRadius: 4,
-          backgroundColor: 'background.paper', //
+          backgroundColor: 'background.paper', 
         }}
       >
-       
         <Box 
           component="img" 
           src={chuckLogo} 
           alt="Logo" 
-          sx={{ width: 60, mb: 4, marginBottom: 4 }} 
+          sx={{ width: 60, mb: 4 }} 
         />
         
         <Typography 
           variant="h4" 
-          sx={{ 
-            mb: 3, 
-            color: 'text.primary', 
-            textAlign: 'center',
-          
-          }}
+          sx={{ mb: 3, color: 'text.primary', textAlign: 'center' }}
         >
           Explore "Chuck Jokes" with us!
         </Typography>
@@ -51,6 +51,8 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
             fullWidth
             label="E-mail"
             placeholder="Type your email"
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
             sx={{ mb: 2 }} 
           />
@@ -60,6 +62,8 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
             label="Password"
             type="password"
             placeholder="Type your password"
+            value={password} // 3. Controlled input[cite: 4]
+            onChange={(e) => setPassword(e.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
             sx={{ mb: 3 }} 
           />
@@ -69,7 +73,16 @@ export default function AuthLayout({ buttonText, linkText, linkLabel, linkPath }
             fullWidth
             variant="contained"
             size="large"
-            sx={{ py: 1.2, mb: 2, fontSize: '20px' }} 
+            disabled={!isFormValid} 
+            sx={{ 
+              py: 1.2, 
+              mb: 2, 
+              fontSize: '20px',
+              '&.Mui-disabled': {
+                backgroundColor: '#D9D9D9',
+                color: '#A0A0A0'
+              }
+            }} 
           >
             {buttonText}
           </Button>

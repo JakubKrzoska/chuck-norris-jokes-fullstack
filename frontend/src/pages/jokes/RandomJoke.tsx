@@ -72,17 +72,13 @@ export default function RandomJoke() {
 
       <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-end', mb: 7 }}>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <TextField 
-            fullWidth 
-            label="Impersonate" 
-            placeholder="Impersonate Chuck Norris"
-            value={impersonateName} 
-            onChange={(e) => setImpersonateName(e.target.value)}
-            slotProps={{ inputLabel: { shrink: true } }}
-            sx={{ 
-                '& .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.light' },
-                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.main' }
-            }}
+           <TextField 
+              fullWidth 
+              label="Impersonate" 
+              placeholder="Impersonate Chuck Norris"
+              value={impersonateName} 
+              onChange={(e) => setImpersonateName(e.target.value)}
+              slotProps={{ inputLabel: { shrink: true } }}
             />
             <Button 
             variant="contained" 

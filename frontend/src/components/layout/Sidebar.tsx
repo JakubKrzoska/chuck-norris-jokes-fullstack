@@ -59,7 +59,7 @@ export default function Sidebar() {
         >
           LOG OUT
         </Button>
-        <Typography sx={{ color: '#FDFDFA', fontSize: '10px', opacity: 0.8 }}>
+        <Typography sx={{ color: '#FDFDFA', fontSize: '10px',  }}>
           made with Chuck by Chuck - 2024
         </Typography>
       </Box>
