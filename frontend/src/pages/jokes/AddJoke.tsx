@@ -1,8 +1,26 @@
 import { useState } from 'react';
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Box, Typography, TextField, Button, Alert } from '@mui/material';
+import { api } from '../../api'; 
 
 export default function AddJoke() {
   const [jokeText, setJokeText] = useState('');
+  const [status, setStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+
+  const handleAddJoke = async () => {
+    setStatus(null); // Clear previous status
+    try {
+      await api.request('/jokes', {
+        method: 'POST',
+        body: JSON.stringify({ text: jokeText }),
+      });
+      
+      // Provide feedback and clear the input[cite: 3]
+      setStatus({ type: 'success', message: 'Your joke has been added to the list!' });
+      setJokeText(''); 
+    } catch (err: any) {
+      setStatus({ type: 'error', message: err.message || 'Failed to add joke' });
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', pt: 5, gap: 5, width: '60%' }}>
@@ -10,6 +28,9 @@ export default function AddJoke() {
         <Typography variant="h4" sx={{ fontWeight: 700, mb: 4, color: 'text.primary' }}>
           Add joke
         </Typography>
+
+        {/* Status feedback for the user */}
+        {status && <Alert severity={status.type} sx={{ mb: 2 }}>{status.message}</Alert>}
 
         <TextField
           fullWidth
@@ -27,11 +48,12 @@ export default function AddJoke() {
         />
       </Box>
 
-      <Box sx={{pb: 3 }}>
+      <Box sx={{ pb: 3 }}>
         <Button 
           variant="contained" 
           fullWidth 
           disabled={!jokeText.trim()}
+          onClick={handleAddJoke} 
           sx={{ 
             py: 1.8, 
             fontSize: '16px', 

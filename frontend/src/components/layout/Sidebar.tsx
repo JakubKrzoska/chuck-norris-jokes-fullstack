@@ -4,8 +4,12 @@ import chuckLogo from '../../assets/chuck-logo.svg';
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const handleLogout = () => navigate('/login');
 
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    
+    navigate('/login');
+  };
   const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
     color: '#FDFDFA',
     textDecoration: isActive ? 'underline' : 'none',

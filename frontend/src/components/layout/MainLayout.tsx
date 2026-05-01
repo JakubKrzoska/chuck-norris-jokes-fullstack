@@ -1,8 +1,18 @@
+import { useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 export default function MainLayout() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <Box 
       sx={{ 
@@ -10,7 +20,7 @@ export default function MainLayout() {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
-        backgroundColor: 'primary.main', //
+        backgroundColor: 'primary.main', 
         p: { xs: 2, md: 4 },
       }}
     >
@@ -25,7 +35,6 @@ export default function MainLayout() {
         }}
       >
         <Sidebar />
-
         <Paper 
           elevation={6} 
           sx={{ 
@@ -34,7 +43,7 @@ export default function MainLayout() {
             backgroundColor: 'background.paper',
             pt: { xs: 4, md: 6 }, 
             px: { xs: 4, md: 6 }, 
-            pb: { xs: 2, md: 3 }, // Reduced from 6 to 3
+            pb: { xs: 2, md: 3 }, 
             position: 'relative', 
             display: 'flex',
             flexDirection: 'column',

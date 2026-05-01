@@ -1,15 +1,18 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { Box, Typography, TextField, Button, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Box, Typography, TextField, Button, MenuItem, Select, FormControl, InputLabel, Alert } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import heroImg from '../../assets/hero.png';
+import { api } from '../../api'; 
 
 export default function RandomJoke() {
   const [rawJoke, setRawJoke] = useState<string>("Loading joke...");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [impersonateName, setImpersonateName] = useState<string>('');
+  const [saveStatus, setSaveStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null); // New state for save feedback
 
   const fetchJoke = useCallback(async () => {
+    setSaveStatus(null); // Reset status when fetching a new joke
     try {
       let url = 'https://api.chucknorris.io/jokes/random';
       if (selectedCategory) url += `?category=${selectedCategory}`;
@@ -37,14 +40,22 @@ export default function RandomJoke() {
     fetchJoke();
   }, [fetchJoke]);
 
+  const handleSaveJoke = async () => {
+    try {
+      await api.request('/jokes', {
+        method: 'POST',
+        body: JSON.stringify({ text: displayedJoke }),
+      });
+      setSaveStatus({ type: 'success', message: 'Joke saved successfully!' });
+    } catch (err: unknown) {
+      setSaveStatus({ type: 'error', message: err.message || 'Failed to save joke' });
+    }
+  };
+
   return (
     <Box sx={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      height: '100%', 
-      justifyContent: 'space-between', 
-      position: 'relative',
-      pb: 2 
+      display: 'flex', flexDirection: 'column', height: '100%', 
+      justifyContent: 'space-between', position: 'relative', pb: 2 
     }}>
       <Box 
         component="img" src={heroImg} alt="Hero"
@@ -60,6 +71,8 @@ export default function RandomJoke() {
           Get your random joke
         </Typography>
 
+        {saveStatus && <Alert severity={saveStatus.type} sx={{ mb: 2, maxWidth: '95%' }}>{saveStatus.message}</Alert>}
+
         <Typography 
           sx={{ 
             fontSize: '24px', fontStyle: 'italic', lineHeight: 1.3,
@@ -73,54 +86,43 @@ export default function RandomJoke() {
       <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-end', mb: 7 }}>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
            <TextField 
-              fullWidth 
-              label="Impersonate" 
-              placeholder="Impersonate Chuck Norris"
-              value={impersonateName} 
-              onChange={(e) => setImpersonateName(e.target.value)}
+              fullWidth label="Impersonate" placeholder="Impersonate Chuck Norris"
+              value={impersonateName} onChange={(e) => setImpersonateName(e.target.value)}
               slotProps={{ inputLabel: { shrink: true } }}
             />
             <Button 
-            variant="contained" 
-            fullWidth 
-            onClick={fetchJoke} 
-            sx={{ py: 1, fontSize: '14px', fontWeight: 600, textTransform: 'uppercase' }}
+              variant="contained" fullWidth onClick={fetchJoke} 
+              sx={{ py: 1, fontSize: '14px', fontWeight: 600, textTransform: 'uppercase' }}
             >
-            DRAW A {impersonateName ? impersonateName.toUpperCase() : 'RANDOM CHUCK NORRIS'} JOKE
+              DRAW A {impersonateName ? impersonateName.toUpperCase() : 'RANDOM CHUCK NORRIS'} JOKE
             </Button>
         </Box>
 
-        {/* Right Column: Categories + Save Button */}
         <Box sx={{ width: '35%', display: 'flex', flexDirection: 'column', gap: 4 }}>
             <FormControl 
-            fullWidth
-            sx={{ 
-                '& .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.light' },
-                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.main' }
-            }}
+              fullWidth
+              sx={{ 
+                  '& .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.light' },
+                  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.main' }
+              }}
             >
-            <InputLabel shrink>Categories</InputLabel>
-            <Select 
-                value={selectedCategory} 
-                onChange={(e: SelectChangeEvent) => setSelectedCategory(e.target.value)} 
-                displayEmpty
-            >
-                <MenuItem value=""><em>Categories</em></MenuItem>
-                {categories.map(cat => <MenuItem key={cat} value={cat}>{cat.toUpperCase()}</MenuItem>)}
-            </Select>
+              <InputLabel shrink>Categories</InputLabel>
+              <Select 
+                  value={selectedCategory} onChange={(e: SelectChangeEvent) => setSelectedCategory(e.target.value)} displayEmpty
+              >
+                  <MenuItem value=""><em>Categories</em></MenuItem>
+                  {categories.map(cat => <MenuItem key={cat} value={cat}>{cat.toUpperCase()}</MenuItem>)}
+              </Select>
             </FormControl>
             
             <Button 
-            variant="contained" 
-            color="secondary" 
-            fullWidth 
-            sx={{ py: 1, fontSize: '14px', fontWeight: 600, textTransform: 'uppercase' }}
+              variant="contained" color="secondary" fullWidth onClick={handleSaveJoke} // <-- Attached the handler here
+              sx={{ py: 1, fontSize: '14px', fontWeight: 600, textTransform: 'uppercase' }}
             >
-            SAVE THIS JOKE
+              SAVE THIS JOKE
             </Button>
         </Box>
-
-        </Box>
+      </Box>
     </Box>
   );
 }
