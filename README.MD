@@ -61,15 +61,20 @@ To run this project locally, follow these steps:
 *   npm or yarn
 
 ### 2. Backend Setup
-1.  Navigate to the backend directory:
+    Before setting up the individual services, install the dependencies in the root folder to ensure the workspace is correctly initialized:
+1.  ```bash
+    # In the CHUCK-NORRIS-JOKES root directory
+    npm install
+    ```
+2.  Navigate to the backend directory:
     ```bash
     cd backend
     ```
-2.  Install dependencies:
+3.  Install dependencies:
     ```bash
     npm install
     ```
-3.  Start the server:
+4.  Start the server:
     ```bash
     npm run start:dev
     ```
