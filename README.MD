@@ -36,6 +36,7 @@ A modern, full-stack application designed to explore, impersonate, and collect t
 ---
 
 ## 📂 Project Structure
+```text
 CHUCK-NORRIS-JOKES/
 ├── backend/           # NestJS server and API logic
 │   ├── src/
@@ -48,7 +49,7 @@ CHUCK-NORRIS-JOKES/
 │   │   ├── pages/      # Views: Login, SignUp, RandomJoke, MyJokes, AddJoke
 │   │   └── theme/      # Custom Material UI theme configurations
 └── README.md          # Comprehensive project documentation
-
+```
 ---
 
 ## ⚙️ Getting Started
