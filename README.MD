@@ -61,7 +61,9 @@ To run this project locally, follow these steps:
 *   npm or yarn
 
 ### 2. Backend Setup
-    Before setting up the individual services, install the dependencies in the root folder to ensure the workspace is correctly initialized:
+
+Before setting up the individual services, install the dependencies in the root folder to ensure the workspace is correctly initialized:
+
 1.  ```bash
     # In the CHUCK-NORRIS-JOKES root directory
     npm install
